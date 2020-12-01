@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">KidDo</string>
+    <string name="title_home">Home</string>
+    <string name="title_profile">Profile</string>
+    <string name="title_gift">Gift</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="fullname">Full Name</string>
+    <string name="login">Log In</string>
+    <string name="signup">Sign Up</string>
+    <string name="signuphere">Dont have an account yet? Sign Up.</string>
+    <string name="loginhere">Already have an account? Login.</string>
+</resources>
