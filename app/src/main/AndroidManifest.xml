@@ -12,14 +12,21 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_kiddo_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".SignUp" android:theme="@style/Theme.Design.Light.NoActionBar" />
-        <activity android:name=".Login" android:theme="@style/Theme.Design.Light.NoActionBar" />
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".AddMainActivity" android:parentActivityName=".SplashScreen"></activity>
+        <activity
+            android:name=".SignUp"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity
+            android:name=".Login"
+            android:theme="@style/Theme.Design.Light.NoActionBar" />
+        <activity android:name=".SubActivity" android:parentActivityName=".SplashScreen"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".Gift" />
         <activity android:name=".Profile" />
-        <activity android:name=".SplashScreen"
+        <activity
+            android:name=".SplashScreen"
             android:theme="@style/Theme.Design.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
