@@ -7,8 +7,10 @@ public class Configuration {
     public static final String URL_GET_ALL_MAIN_ACTIVITIES= "http://192.168.1.18/Android/kiddo/getAllMainActivities.php";
     public static final String URL_GET_ALL_SUB_ACTIVITIES= "http://192.168.1.18/Android/kiddo/getAllSubActivities.php";
     public static final String URL_GET_ALL_PARENT_CHILDREN= "http://192.168.1.18/Android/kiddo/getAllParentsChildren.php";
+    public static final String URL_GET_ALL_ACTIVITIES= "http://192.168.1.18/Android/kiddo/getAllActivities.php";
 
     public static final String URL_ADD_MAIN_ACTIVITY= "http://192.168.1.18/Android/kiddo/addMainActivities.php";
+    public static final String URL_ADD_SUB_ACTIVITY= "http://192.168.1.18/Android/kiddo/addSubActivities.php";
 
     // key for PHP
     public static final String KEY_MAIN_ACT_TITLE = "title";

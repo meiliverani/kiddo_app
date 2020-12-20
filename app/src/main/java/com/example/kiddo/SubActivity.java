@@ -16,6 +16,8 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -30,9 +32,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class SubActivity extends AppCompatActivity {
-    private String myFullname = "";
+public class SubActivity extends AppCompatActivity implements View.OnClickListener {
+    private String myFullname, myRole = "";
     private Integer myMainId = 0;
+    private Button btnAddSub;
 
     // Key for current fullname
     private final String FULLNAME_KEY = "fullname";
@@ -59,7 +62,11 @@ public class SubActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         String _myFullname =  getIntent().getStringExtra("MY_FULLNAME");
+        String _myRole =  getIntent().getStringExtra("MY_ROLE");
         Integer _myMainId =  getIntent().getIntExtra("MAIN_ID", 0);
+
+        btnAddSub = (Button) findViewById(R.id.buttonAddSub);
+        btnAddSub.setOnClickListener(this);
 
         mPreferences = getSharedPreferences(sharedPrefFile, MODE_PRIVATE);
         mEditor = mPreferences.edit();
@@ -68,7 +75,12 @@ public class SubActivity extends AppCompatActivity {
 
         // Restore preferences
         myFullname = mPreferences.getString(FULLNAME_KEY, _myFullname);
+        myRole = mPreferences.getString("role", _myRole);
         myMainId = _myMainId;
+
+        if (myRole.contains("Child")) {
+            btnAddSub.setVisibility(View.GONE);
+        }
 
         requestQueue = Volley.newRequestQueue(this);
 
@@ -179,6 +191,15 @@ public class SubActivity extends AppCompatActivity {
         SharedPreferences.Editor preferencesEditor = mPreferences.edit();
         preferencesEditor.putString(FULLNAME_KEY, myFullname);
         preferencesEditor.apply();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v == btnAddSub) {
+            Intent intent = new Intent(SubActivity.this, AddSubActivity.class);
+            intent.putExtra("MAIN_ID", myMainId);
+            startActivity(intent);
+        }
     }
 
 }
