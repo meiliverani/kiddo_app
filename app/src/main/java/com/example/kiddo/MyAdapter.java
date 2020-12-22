@@ -58,4 +58,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyHolder> {
     public int getItemCount() {
         return models.size();
     }
+
+    public Model getWordAtPosition (int position) {
+        return models.get(position);
+    }
 }

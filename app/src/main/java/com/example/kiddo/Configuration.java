@@ -11,6 +11,9 @@ public class Configuration {
 
     public static final String URL_ADD_MAIN_ACTIVITY= "http://192.168.1.18/Android/kiddo/addMainActivities.php";
     public static final String URL_ADD_SUB_ACTIVITY= "http://192.168.1.18/Android/kiddo/addSubActivities.php";
+    public static final String URL_UPDATE_CHILD_STARS= "http://192.168.1.18/Android/kiddo/updateChildStars.php";
+    public static final String URL_DELETE_MAIN_ACTIVITY= "http://192.168.1.18/Android/kiddo/deleteMain.php";
+    public static final String URL_DELETE_SUB_ACTIVITY= "http://192.168.1.18/Android/kiddo/deleteSub.php";
 
     // key for PHP
     public static final String KEY_MAIN_ACT_TITLE = "title";

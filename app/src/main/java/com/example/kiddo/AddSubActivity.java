@@ -2,9 +2,13 @@ package com.example.kiddo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -37,6 +41,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class AddSubActivity extends AppCompatActivity implements View.OnClickListener {
+    private Calendar c;
     private Integer myMainId = 0;
 
     private EditText txtAlarmDesc, txtPoints, txtAlarmTime;
@@ -86,6 +91,11 @@ public class AddSubActivity extends AppCompatActivity implements View.OnClickLis
                     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                         alarmTime = hourOfDay + ":" + minute;
                         txtAlarmTime.setText(alarmTime);
+
+                        c = Calendar.getInstance();
+                        c.set(Calendar.HOUR_OF_DAY,hourOfDay);
+                        c.set(Calendar.MINUTE, minute);
+                        c.set(Calendar.SECOND, 0);
                     }
                 },
                         calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE),
@@ -201,10 +211,27 @@ public class AddSubActivity extends AppCompatActivity implements View.OnClickLis
         amc.execute();
     }
 
+    private void startAlarm(Calendar c) {
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        Intent intent = new Intent(this, AlertReceiver.class);
+        intent.putExtra("ALARM_TITLE", spinnerActivities.getSelectedItem().toString().trim());
+        intent.putExtra("ALARM_DESC", txtAlarmDesc.getText().toString().trim());
+        intent.putExtra("ALARM_DAYS", daysList);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, 0);
+
+        if (c.before(Calendar.getInstance())) {
+            c.add(Calendar.DATE, 1);
+        }
+
+        alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+//        alarmManager.setExact(AlarmManager.RTC_WAKEUP, c.getTimeInMillis(), pendingIntent);
+    }
+
     @Override
     public void onClick(View v) {
         if (v == buttonSaveNewSub) {
             addSubAct();
+            startAlarm(c);
         }
     }
 }

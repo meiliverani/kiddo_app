@@ -50,6 +50,17 @@
                 android:layout_margin="10dp"
                 android:id="@+id/recyclerViewSub" />
 
+            <TextView
+                android:id="@+id/deleteHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="*swipe to delete"
+                android:layout_marginLeft="20dp"
+                android:textSize="10dp"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@+id/recyclerViewSub"
+                />
+
         </LinearLayout>
 
     </ScrollView>

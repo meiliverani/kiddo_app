@@ -3,6 +3,7 @@ package com.example.kiddo;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,6 +11,7 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -34,6 +37,7 @@ import org.json.JSONObject;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -82,6 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txtFullname.setText(String.format("%s", myFullname));
         if (myRole.contains("Child")) {
             btnAddMain.setVisibility(View.GONE);
+            findViewById(R.id.deleteHint).setVisibility(View.GONE);
         }
 
         requestQueue = Volley.newRequestQueue(this);
@@ -117,6 +122,35 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         getMainActivities();
         setLayoutAdapter();
+
+        ItemTouchHelper helper = new ItemTouchHelper(
+                new ItemTouchHelper.SimpleCallback(0,
+                        ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
+                    @Override
+                    public boolean onMove(RecyclerView recyclerView,
+                                          RecyclerView.ViewHolder viewHolder,
+                                          RecyclerView.ViewHolder target) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onSwiped(RecyclerView.ViewHolder viewHolder,
+                                         int direction) {
+                        if (myRole.contains("Child")) {
+                            Toast.makeText(MainActivity.this, "You have no permission to delete activity.", Toast.LENGTH_LONG).show();
+                        } else {
+                            int position = viewHolder.getAdapterPosition();
+                            Model myMain = myAdapter.getWordAtPosition(position);
+                            Toast.makeText(MainActivity.this, "Deleting " +
+                                    myMain.getTitle(), Toast.LENGTH_LONG).show();
+
+                            // Delete the word
+                            confirmDeleteMain(myMain.getId());
+                        }
+                    }
+                });
+
+        helper.attachToRecyclerView(recyclerView);
     }
 
     public void setLayoutAdapter() {
@@ -138,7 +172,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         inflater.inflate(R.menu.menu, menu);
         return true;
     }
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -253,6 +286,62 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return models;
     }
 
+    private void confirmDeleteMain(final Integer id){
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        alertDialogBuilder.setMessage("Are you sure to delete this Schedule?");
+
+        alertDialogBuilder.setPositiveButton("Delete",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+                        deleteMain(id);
+//                        startActivity(new Intent(MainActivity.this,MainActivity.class));
+                    }
+                });
+
+        alertDialogBuilder.setNegativeButton("Cancel",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface arg0, int arg1) {
+
+                    }
+                });
+
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
+    }
+
+    private void deleteMain(final Integer id){
+        class DeleteMain extends AsyncTask<Void,Void,String> {
+            ProgressDialog loading;
+
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                loading = ProgressDialog.show(MainActivity.this, "Deleting...", "Wait...", false, false);
+            }
+
+            @Override
+            protected void onPostExecute(String s) {
+                super.onPostExecute(s);
+                loading.dismiss();
+                Toast.makeText(MainActivity.this, s, Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            protected String doInBackground(Void... params) {
+                HashMap<String,String> hashMap = new HashMap<>();
+                hashMap.put("id",id.toString());
+
+                RequestHandler rh = new RequestHandler();
+                String s = rh.sendPostRequest(Configuration.URL_DELETE_MAIN_ACTIVITY, hashMap);
+                return s;
+            }
+        }
+
+        DeleteMain de = new DeleteMain();
+        de.execute();
+    }
     /**
      * Callback for activity pause.  Shared preferences are saved here.
      */

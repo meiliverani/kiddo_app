@@ -83,6 +83,17 @@
                 android:layout_margin="10dp"
                 android:id="@+id/recyclerView" />
 
+            <TextView
+                android:id="@+id/deleteHint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="*swipe to delete"
+                android:layout_marginLeft="20dp"
+                android:textSize="10dp"
+                android:textColor="@color/colorAccent"
+                android:layout_below="@+id/recyclerView"
+                />
+
         </LinearLayout>
     </ScrollView>
 
@@ -95,4 +106,6 @@
         app:itemIconTint="@drawable/selector"
         app:menu="@menu/menu_navigation"
         android:layout_alignParentBottom="true"/>
+
+
 </RelativeLayout>

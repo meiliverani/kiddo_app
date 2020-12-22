@@ -2,8 +2,17 @@ package com.example.kiddo;
 
 public class SubModel {
 
+    private Integer id;
     private String activity, desc, alarmDays, alarmTime, starsGiven;
 //    private Integer activityIcon;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
     public String getActivity() {
         return activity;
