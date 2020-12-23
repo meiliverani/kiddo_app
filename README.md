@@ -24,7 +24,7 @@ The diagram of the db's schema is drawn as below:
 
 and exported .sql file as below:
 
-![alt text](https://5psihitamsr.000webhostapp.com/db_kiddo.sql)
+https://5psihitamsr.000webhostapp.com/db_kiddo.sql
 
 
 # FEATURES ANALYSIS
