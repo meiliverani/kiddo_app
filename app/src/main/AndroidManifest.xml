@@ -14,7 +14,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".AddSubActivity" android:parentActivityName=".SplashScreen"></activity>
+        <activity android:name=".AddGiftActivity" android:parentActivityName=".SplashScreen"></activity>
+        <activity
+            android:name=".AddSubActivity"
+            android:parentActivityName=".SplashScreen" />
         <activity
             android:name=".AddMainActivity"
             android:parentActivityName=".SplashScreen" />
@@ -39,8 +42,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
-        <receiver android:name=".AlertReceiver"/>
+
+        <receiver android:name=".AlertReceiver" />
     </application>
 
 </manifest>

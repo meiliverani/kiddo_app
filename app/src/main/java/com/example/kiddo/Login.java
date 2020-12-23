@@ -21,7 +21,7 @@ public class Login extends AppCompatActivity {
     TextInputEditText txtUsername, txtPassword;
     Button btnLogin;
     TextView txtViewSignUp;
-    ProgressBar progressBar;
+//    ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +33,7 @@ public class Login extends AppCompatActivity {
 
         btnLogin = findViewById(R.id.buttonLogin);
         txtViewSignUp = findViewById(R.id.signUpText);
-        progressBar = findViewById(R.id.progress);
+//        progressBar = findViewById(R.id.progress);
 
         txtViewSignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -52,7 +52,7 @@ public class Login extends AppCompatActivity {
 
                 if(!username.equals("") && !password.equals("")) {
                     //Start ProgressBar first (Set visibility VISIBLE)
-                    progressBar.setVisibility(View.VISIBLE);
+//                    progressBar.setVisibility(View.VISIBLE);
                     Handler handler = new Handler(Looper.getMainLooper());
                     handler.post(new Runnable() {
                         @Override
@@ -69,7 +69,7 @@ public class Login extends AppCompatActivity {
                             PutData putData = new PutData(Configuration.URL_LOGIN, "POST", field, data);
                             if (putData.startPut()) {
                                 if (putData.onComplete()) {
-                                    progressBar.setVisibility(View.GONE);
+//                                    progressBar.setVisibility(View.GONE);
                                     String result = putData.getResult();
                                     if(result.equals("Login Successfuly as Parent") || result.equals("Login Successfuly as Child")) {
                                         Toast.makeText(getApplicationContext(), result, Toast.LENGTH_SHORT).show();

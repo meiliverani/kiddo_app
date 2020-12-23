@@ -79,7 +79,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mEditor.putString("role", _myRole);
         mEditor.commit();
 
-
         // Restore preferences
         myFullname = mPreferences.getString(FULLNAME_KEY, _myFullname);
         myRole = mPreferences.getString("role", _myRole);
