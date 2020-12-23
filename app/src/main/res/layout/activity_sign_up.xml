@@ -50,6 +50,7 @@
                 android:drawableEnd="@drawable/ic_name"
                 android:inputType="textPersonName"
                 android:drawableRight="@drawable/ic_name"
+                android:textColorHint="@color/colorPrimary"
                 android:fontFamily="@font/poppinsmedium"
                 tools:targetApi="jelly_bean" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -73,6 +74,7 @@
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/ic_profile"
                 android:drawableRight="@drawable/ic_profile"
+                android:textColorHint="@color/colorPrimary"
                 android:fontFamily="@font/poppinsmedium"
                 tools:targetApi="jelly_bean" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -261,7 +263,6 @@
 
         <Button
             android:id="@+id/buttonSignUp"
-            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
